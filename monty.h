@@ -15,10 +15,10 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
-} stack_t;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
+}stack_t;
 
 extern stack_t *STACK;
 extern char *LINE;
@@ -34,9 +34,9 @@ extern char *DATA;
  */
 typedef struct instruction_s
 {
-        char *opcode;
+	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
-} instruction_t;
+}instruction_t;
 
 void print(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
