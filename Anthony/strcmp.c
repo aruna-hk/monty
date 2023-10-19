@@ -5,10 +5,12 @@
  * @str2: string two
  * Return: nothing 
 */
-int strcmp(char* str1, char* str2) 
+int strcmp(const char *str1, const char *str2) 
 {
-    while (*str1 && *str2) {
-        if (*str1 != *str2) {
+    while (*str1 && *str2) 
+    {
+        if (*str1 != *str2) 
+	{
             return 0;
         }
         str1++;
