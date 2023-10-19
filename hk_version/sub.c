@@ -2,11 +2,11 @@
 /**
 * sub - subtract the secon last elemnt from stack and removes to element
 */
-void sub()
+void sub(void)
 {
 	int subs;
 
-	if (STACK == NULL || STACK->next == NULL)
+	if ((STACK == NULL) || (STACK->next == NULL))
 	{
 		fprintf(stderr, "L%d: can't sub, stack too short\n", LINE_NO);
 		exit(EXIT_SUCCESS);

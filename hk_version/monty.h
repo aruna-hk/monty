@@ -46,6 +46,7 @@ void add();
 void swap();
 void sub();
 void diiv();
+void mul();
 char *strdup(char *string);
 char *filelocation(char *s_name);
 int executeline(char *line, int line_no);

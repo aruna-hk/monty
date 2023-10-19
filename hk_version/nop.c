@@ -2,7 +2,6 @@
 /**
 * nop - does nothing
 */
-void nop()
+void nop(void)
 {
-	return;
 }

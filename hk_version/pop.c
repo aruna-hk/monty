@@ -2,7 +2,7 @@
 /**
 * pop - remove top element of the stack
 */
-void pop()
+void pop(void)
 {
 	if (STACK == NULL)
 	{

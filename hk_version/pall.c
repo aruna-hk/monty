@@ -2,9 +2,10 @@
 /**
 * pall - display elements of the stack
 */
-void pall()
+void pall(void)
 {
 	stack_t *stack = STACK;
+
 	if (stack == NULL)
 	{
 		return;

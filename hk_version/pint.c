@@ -2,7 +2,7 @@
 /**
 * pint - print to element of the stack
 */
-void pint()
+void pint(void)
 {
 	if (STACK == NULL)
 	{

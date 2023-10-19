@@ -2,7 +2,7 @@
 /**
 * push - adde node at the beggining of doubly linked list
 */
-void push()
+void push(void)
 {
 	char *data;
 	stack_t *new;
@@ -15,10 +15,10 @@ void push()
 	}
 	data = DATA;
 	while (*data != '\0')
-	{	
-		if (*data > 57 && *data < 48)
+	{
+		if ((int)*data > 57 || (int)*data < 48)
 		{
-			fprintf(stderr, "Line: usage: push integer\n");
+			fprintf(stderr, "L%d: usage: push integer\n", LINE_NO);
 			exit(EXIT_FAILURE);
 		}
 		data++;

@@ -14,7 +14,7 @@ char *getline(FILE *ptr)
 	buffer = malloc(2);
 	line = malloc(1);
 	line[0] = '\0';
-	while(1)
+	while (1)
 	{
 		nread = fread(buffer, sizeof(char), 1, ptr);
 		if (nread != 1)

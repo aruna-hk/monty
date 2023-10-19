@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
-* file_path - get full file path
+* filelocation - get full file path
 * @s_name: short hand name
 * Return: full file path
 */
@@ -12,14 +12,11 @@ char *filelocation(char *s_name)
 	char *file_dir;
 
 	if (*s_name == '/')
-		return(s_name);
-	s_name_dup = malloc(sizeof(strlen(s_name) + 1));
-	s_name_dup[0] = '\0';
+		return (strdup(s_name));
+	s_name_duup = strdup(s_name);
 	strcpy(s_name_dup, s_name);
 	tok = strtok(s_name_dup, "/");
-	file_dir = malloc(strlen(getenv("PWD") + 1));
-	file_dir[0] = '\0';
-	strcpy(file_dir, getenv("PWD"));
+	file_dir = strdup(getenv("PWD"));
 	while (strcmp(tok, ".") == 0 || strcmp(tok, "..") == 0)
 	{
 		if (strcmp(tok, "..") == 0)
