@@ -12,6 +12,7 @@ int main(int argc, char **arglist)
 	FILE *ptr;
 	unsigned int LINE_NO;
 	void (*f)(stack_t **stack, unsigned int line_number);
+
 	stack_t *STACK = NULL;
 
 	if (argc != 2)
@@ -20,7 +21,6 @@ int main(int argc, char **arglist)
 		return (EXIT_FAILURE);
 	}
 	file = filelocation(arglist[1]);
-
 	ptr = fopen(file, "r");
 	free(file);
 	if (ptr == NULL)
@@ -32,10 +32,9 @@ int main(int argc, char **arglist)
 	line = getline(ptr);
 	while (line != NULL)
 	{
-		line[strlen(line) - 1] = '\0';
 		while (*line == ' ')
 			line++;
-		if(*line == '\0')
+		if(*line == '\n')
 		{
 			line = getline(ptr);
 			continue;

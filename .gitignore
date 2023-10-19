@@ -1,3 +1,5 @@
 *.m
+alx_test_suite
+*.bash
 a.out
 monty
