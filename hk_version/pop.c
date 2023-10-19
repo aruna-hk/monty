@@ -1,6 +1,6 @@
 #include "monty.h"
-#include <stdio.h>
 /**
+* pop - remove top element of the stack
 */
 void pop()
 {

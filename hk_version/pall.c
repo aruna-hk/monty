@@ -1,5 +1,4 @@
 #include "monty.h"
-#include <stdio.h>
 /**
 * pall - display elements of the stack
 */

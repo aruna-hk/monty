@@ -1,8 +1,8 @@
 #include "monty.h"
 /**
-* get_op_func -- find and return pointer to
+* get_instruction -- find and return pointer to
 * respective function to allow arithmetic operation--
-* @s: sign string
+* @s: instruction pointer
 * Return: pointer to operators function/NULL
 */
 void (*get_instruction(char *s))(void)

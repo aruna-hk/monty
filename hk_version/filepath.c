@@ -1,6 +1,4 @@
 #include "monty.h"
-#include <string.h>
-#include <stdlib.h>
 /**
 * file_path - get full file path
 * @s_name: short hand name

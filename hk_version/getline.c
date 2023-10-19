@@ -1,5 +1,9 @@
 #include "monty.h"
-
+/**
+* getline - get line from a file
+* @ptr: takes file pointer from fopen
+* Return: read line from the file
+*/
 char *getline(FILE *ptr)
 {
 	char *line;

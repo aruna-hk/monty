@@ -1,5 +1,7 @@
 #include "monty.h"
-#include <stdio.h>
+/**
+* sub - subtract the secon last elemnt from stack and removes to element
+*/
 void sub()
 {
 	int subs;

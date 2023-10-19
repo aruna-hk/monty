@@ -1,6 +1,7 @@
 #include "monty.h"
-#include <stdio.h>
-
+/**
+* diiv - devide second last element of stacck and remove first
+*/
 void diiv()
 {
 	int dev;

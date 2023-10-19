@@ -1,6 +1,7 @@
 #include "monty.h"
-#include <stdio.h>
-
+/**
+* pint - print to element of the stack
+*/
 void pint()
 {
 	if (STACK == NULL)
