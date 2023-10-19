@@ -49,7 +49,9 @@ int main(int argc, char **arglist)
 		}
 		f(&STACK, LINE_NO);
 		LINE_NO++;
+		free(line);
 		line = getline(ptr);
 	}
+	free(line);
 	return (EXIT_SUCCESS);
 }
