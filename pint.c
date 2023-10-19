@@ -1,13 +1,15 @@
 #include "monty.h"
 /**
 * pint - print to element of the stack
+* @stack: pointer to top of stack
+* @line_number: opcode line number in file
 */
-void pint(void)
+void pint(stack_t **stack, unsigned int line_number)
 {
-	if (STACK == NULL)
+	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", LINE_NO);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	fprintf(stdout, "%d\n", STACK->n);
+	fprintf(stdout, "%d\n", (*stack)->n);
 }

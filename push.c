@@ -1,41 +1,33 @@
 #include "monty.h"
 /**
 * push - adde node at the beggining of doubly linked list
+* @stack: pointer to top of stack
+* @line_number: line number of the opcode
 */
-void push(void)
+void push(stack_t **stack, unsigned int line_number)
 {
-	char *data;
 	stack_t *new;
 
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
+		line_number = EXIT_FAILURE;
 		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_SUCCESS);
-	}
-	data = DATA;
-	while (*data != '\0')
-	{
-		if ((int)*data > 57 || (int)*data < 48)
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", LINE_NO);
-			exit(EXIT_FAILURE);
-		}
-		data++;
+		exit(line_number);
 	}
 	new->n = atoi(DATA);
 	new->prev = NULL;
 	new->next = NULL;
-	if (STACK == NULL)
+	if (*stack == NULL)
 	{
-		STACK = new;
+		*stack = new;
 		return;
 	}
 	else
 	{
-		STACK->prev = new;
-		new->next = STACK;
-		STACK = new;
+		(*stack)->prev = new;
+		new->next = (*stack);
+		(*stack) = new;
 		return;
 	}
 }

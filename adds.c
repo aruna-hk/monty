@@ -1,17 +1,19 @@
 #include "monty.h"
 /**
 * add - add top two of the stack
+* @stack: pointer to the stack
+* @line_number: line number in the file
 */
-void add(void)
+void add(stack_t **stack, unsigned int line_number)
 {
 	int adition;
 
-	if ((STACK == NULL) || (STACK->next == NULL))
+	if ((*stack == NULL) || ((*stack)->next == NULL))
 	{
-		fprintf(stdout, "L%d: can't add, stack too short\n", LINE_NO);
+		fprintf(stdout, "L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	adition = STACK->n + STACK->next->n;
-	STACK->next->n = adition;
-	pop();
+	adition = (*stack)->n + (*stack)->next->n;
+	(*stack)->next->n = adition;
+	pop(stack, line_number);
 }

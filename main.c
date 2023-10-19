@@ -1,9 +1,5 @@
 #include "monty.h"
-#include <stdlib.h>
 char *DATA;
-FILE *ptr;
-stack_t *STACK;
-int LINE_NO;
 /**
 * main - open and start reading the file
 * @argc: number of argumenrts
@@ -13,7 +9,10 @@ int LINE_NO;
 int main(int argc, char **arglist)
 {
 	char *line, *file, *opcode;
-	void (*f)();
+	FILE *ptr;
+	unsigned int LINE_NO;
+	void (*f)(stack_t **stack, unsigned int line_number);
+	stack_t *STACK = NULL;
 
 	if (argc != 2)
 	{
@@ -29,7 +28,6 @@ int main(int argc, char **arglist)
 		fprintf(stderr, "Error: Can't open file %s\n", arglist[1]);
 		return (EXIT_FAILURE);
 	}
-	STACK = NULL;
 	LINE_NO = 1;
 	line = getline(ptr);
 	while (line != NULL)
@@ -50,7 +48,7 @@ int main(int argc, char **arglist)
 			fprintf(stderr, "L%d: unknown instruction %s\n", LINE_NO, opcode);
 			return (EXIT_FAILURE);
 		}
-		f();
+		f(&STACK, LINE_NO);
 		LINE_NO++;
 		line = getline(ptr);
 	}

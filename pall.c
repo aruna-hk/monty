@@ -1,18 +1,19 @@
 #include "monty.h"
 /**
 * pall - display elements of the stack
+* @stack: stack pointer
+* @line_number: line number of the opcode
 */
-void pall(void)
+void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *stack = STACK;
-
-	if (stack == NULL)
+	if (*stack == NULL)
+		exit(line_number);
+	while ((*stack)->next != NULL)
 	{
-		return;
+		fprintf(stdout, "%d\n", (*stack)->n);
+		*stack = (*stack)->next;
 	}
-	while (stack != NULL)
-	{
-		fprintf(stderr, "%d\n", stack->n);
-		stack = stack->next;
-	}
+	fprintf(stdout, "%d\n", (*stack)->n);
+	while ((*stack)->prev != NULL)
+		(*stack) = (*stack)->prev;
 }
