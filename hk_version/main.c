@@ -13,6 +13,7 @@ int LINE_NO;
 int main(int argc, char **arglist)
 {
 	char *line, *file, *opcode;
+	void (*f)();
 
 	if (argc != 2)
 	{
@@ -34,11 +35,22 @@ int main(int argc, char **arglist)
 	while (line != NULL)
 	{
 		line[strlen(line) - 1] = '\0';
+		while (*line == ' ')
+			line++;
 		if(*line == '\0')
+		{
+			line = getline(ptr);
 			continue;
+		}
 		opcode = strtok(strdup(line), " \n");
 		DATA = strtok(NULL, "\0");
-		get_instruction(opcode)();
+		f = get_instruction(opcode);
+		if (f == NULL)
+		{
+			fprintf(stderr, "L%d: unknown instruction %s\n", LINE_NO, opcode);
+			return (EXIT_FAILURE);
+		}
+		f();
 		LINE_NO++;
 		line = getline(ptr);
 	}
