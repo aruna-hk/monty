@@ -8,7 +8,7 @@ void add()
 
 	if (STACK == NULL || STACK->next == NULL)
 	{
-		dprintf(STDERR_FILENO, "L%d: can't add, stack too short\n", LINE_NO);
+		fprintf(stdout, "L%d: can't add, stack too short\n", LINE_NO);
 		exit(EXIT_FAILURE);
 	}
 	adition = STACK->n + STACK->next->n;

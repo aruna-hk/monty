@@ -6,7 +6,7 @@ void swap()
 
 	if (STACK == NULL || STACK->next == NULL)
 	{
-		dprintf(STDERR_FILENO, "L<line_number>: can't swap, stack too short");
+		fprintf(stderr, "L<line_number>: can't swap, stack too short");
 		exit(EXIT_FAILURE);
 	}
 	temp = STACK->n;

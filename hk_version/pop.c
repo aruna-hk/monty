@@ -6,7 +6,7 @@ void pop()
 {
 	if (STACK == NULL)
 	{
-		dprintf(STDERR_FILENO, "L%d: can't pop an empty stack\n", LINE_NO);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", LINE_NO);
 		exit(EXIT_FAILURE);
 	}
 	if (STACK->next == NULL)

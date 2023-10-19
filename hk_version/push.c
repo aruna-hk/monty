@@ -14,7 +14,7 @@ void push()
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
-		dprintf(STDERR_FILENO, "Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_SUCCESS);
 	}
 	data = DATA;
@@ -22,7 +22,7 @@ void push()
 	{	
 		if (*data > 57 && *data < 48)
 		{
-			dprintf(STDERR_FILENO, "Line: usage: push integer\n");
+			fprintf(stderr, "Line: usage: push integer\n");
 			exit(EXIT_FAILURE);
 		}
 		data++;

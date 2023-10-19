@@ -6,7 +6,7 @@ void sub()
 
 	if (STACK == NULL || STACK->next == NULL)
 	{
-		dprintf(STDERR_FILENO, "L%d: can't sub, stack too short\n", LINE_NO);
+		fprintf(stderr, "L%d: can't sub, stack too short\n", LINE_NO);
 		exit(EXIT_SUCCESS);
 	}
 	subs = STACK->next->n - STACK->n;

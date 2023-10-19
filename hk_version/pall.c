@@ -12,7 +12,7 @@ void pall()
 	}
 	while (stack != NULL)
 	{
-		dprintf(STDOUT_FILENO, "%d\n", stack->n);
+		fprintf(stderr, "%d\n", stack->n);
 		stack = stack->next;
 	}
 }

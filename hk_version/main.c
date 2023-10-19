@@ -1,6 +1,7 @@
 #include "monty.h"
-FILE *ptr;
+#include <stdlib.h>
 char *DATA;
+FILE *ptr;
 stack_t *STACK;
 int LINE_NO;
 /**
@@ -11,37 +12,35 @@ int LINE_NO;
 */
 int main(int argc, char **arglist)
 {
-	char *opcode, *line, *instruction;
-	int num;
-	ssize_t nread;
-	size_t rread;
-	void (*f_ptr)(void);
+	char *line, *file, *opcode;
 
 	if (argc != 2)
 	{
-		dprintf(STDERR_FILENO, "USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		return (EXIT_FAILURE);
 	}
-	char *file = filelocation(arglist[1]);
+	file = filelocation(arglist[1]);
 
 	ptr = fopen(file, "r");
 	free(file);
 	if (ptr == NULL)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", arglist[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", arglist[1]);
 		return (EXIT_FAILURE);
 	}
 	STACK = NULL;
 	LINE_NO = 1;
-	nread = getline(&line,&rread, ptr);
-	while (nread != -1)
+	line = getline(ptr);
+	while (line != NULL)
 	{
 		line[strlen(line) - 1] = '\0';
-		opcode = strtok(strdup(line), " ");
+		if(*line == '\0')
+			continue;
+		opcode = strtok(strdup(line), " \n");
 		DATA = strtok(NULL, "\0");
 		get_instruction(opcode)();
 		LINE_NO++;
-		nread = getline(&line, &rread, ptr);
+		line = getline(ptr);
 	}
 	return (EXIT_SUCCESS);
 }
