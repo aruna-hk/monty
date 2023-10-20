@@ -1,23 +1,25 @@
 #include "monty.h"
 /**
 * pop - remove top element of the stack
+* @stack: pointe to top of the stac
+* @line_number: line number to og the opcode
 */
-void pop(void)
+void pop(stack_t **stack, unsigned int line_number)
 {
-	if (STACK == NULL)
+	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", LINE_NO);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	if (STACK->next == NULL)
+	if ((*stack)->next == NULL)
 	{
-		free(STACK);
-		STACK = NULL;
+		free(*stack);
+		*stack = NULL;
 	}
 	else
 	{
-		STACK = STACK->next;
-		free(STACK->prev);
-		STACK->prev = NULL;
+		*stack = (*stack)->next;
+		free((*stack)->prev);
+		(*stack)->prev = NULL;
 	}
 }

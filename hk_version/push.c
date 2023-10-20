@@ -1,41 +1,61 @@
 #include "monty.h"
+int ret_numb(unsigned int line_number)
+{
+	char *num = _strdup(DATA);
+
+	while (*num == ' ')
+		num++;
+	if (*num == '\n' || *num == '\0')
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_SUCCESS);
+	}
+	else if (*num == '-')
+	{
+		num++;
+		if ((int)*num > 57 || (int)*num < 48)
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
+				exit(EXIT_FAILURE);
+		}
+		else
+			return ((atoi(DATA)));
+	}
+	else if ((int)*num > 57 || (int)*num < 48)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	return (atoi(DATA));
+}
 /**
 * push - adde node at the beggining of doubly linked list
+* @stack: pointer to top of stack
+* @line_number: line number of the opcode
 */
-void push(void)
+void push(stack_t **stack, unsigned int line_number)
 {
-	char *data;
 	stack_t *new;
 
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
-	data = DATA;
-	while (*data != '\0')
-	{
-		if ((int)*data > 57 || (int)*data < 48)
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", LINE_NO);
-			exit(EXIT_FAILURE);
-		}
-		data++;
-	}
-	new->n = atoi(DATA);
+	new->n = ret_numb(line_number);
 	new->prev = NULL;
 	new->next = NULL;
-	if (STACK == NULL)
+	if (*stack == NULL)
 	{
-		STACK = new;
+		*stack = new;
 		return;
 	}
 	else
 	{
-		STACK->prev = new;
-		new->next = STACK;
-		STACK = new;
+		(*stack)->prev = new;
+		new->next = (*stack);
+		(*stack) = new;
 		return;
 	}
 }

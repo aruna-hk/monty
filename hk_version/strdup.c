@@ -1,10 +1,10 @@
 #include "monty.h"
 /**
-* strdup - string duplication function
+* _strdup - string duplication function
 * @string: string to duplicate
 * Return: duplicated string
 */
-char *strdup(char *string)
+char *_strdup(char *string)
 {
 	char *dup = malloc(strlen(string) + 1);
 

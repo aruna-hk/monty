@@ -1,7 +1,12 @@
 #include "monty.h"
+/**
+* ret_numb - return number from string works on exter varibale DATA
+* @line_number: line number in the file
+* Return: interger
+*/
 int ret_numb(unsigned int line_number)
 {
-	char *num = _strdup(DATA);
+	char *num = __strdup(DATA);
 
 	while (*num == ' ')
 		num++;
@@ -13,18 +18,28 @@ int ret_numb(unsigned int line_number)
 	else if (*num == '-')
 	{
 		num++;
+		while (*num != '\0' && *num != ' ')
+		{
 		if ((int)*num > 57 || (int)*num < 48)
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 				exit(EXIT_FAILURE);
 		}
-		else
-			return ((atoi(DATA)));
+		num++;
+		}
+		return ((atoi(DATA)));
 	}
-	else if ((int)*num > 57 || (int)*num < 48)
+	else
 	{
+		while (*num != '\0' && *num != ' ')
+		{
+		if ((int)*num > 57 || (int)*num < 48)
+		{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
+		}
+		num++;
+		}
 	}
 	return (atoi(DATA));
 }

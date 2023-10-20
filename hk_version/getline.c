@@ -4,7 +4,7 @@
 * @ptr: takes file pointer from fopen
 * Return: read line from the file
 */
-char *getline(FILE *ptr)
+char *_getline(FILE *ptr)
 {
 	char *line;
 	char *buffer;

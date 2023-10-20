@@ -5,7 +5,7 @@
 * @s: instruction pointer
 * Return: pointer to operators function/NULL
 */
-void (*get_instruction(char *s))(void)
+void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number)
 {
 	int i = 0;
 
@@ -24,7 +24,7 @@ void (*get_instruction(char *s))(void)
 	{
 		if (strcmp(s, ops[i].opcode) == 0)
 		{
-			return (ops[i].get_instruction);
+			return (ops[i].f);
 		}
 		i++;
 	}

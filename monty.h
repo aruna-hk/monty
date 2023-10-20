@@ -1,9 +1,15 @@
 #ifndef MONTY_H
 #define MONTY_H
+#include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#define NEWL "\n"
+#define USAGE "USAGE: monty file"
+#define MALLOC "Error: malloc failed"
+#define OPEN_ERROR "Error: Can't open file "
+#define OP_NUN "unknown instruction"
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -38,6 +44,10 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+char *_realloc(char *existing, unsigned int extra);
+
+void exec_instruction(char **line, stack_t **STACK, int unsigned line_number);
+
 void print(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
@@ -48,7 +58,7 @@ void swap(stack_t **stack, unsigned int line_number);
 void sub(stack_t **stack, unsigned int line_number);
 void diiv(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
-char *_strdup(char *string);
+char *__strdup(char *string);
 char *filelocation(char *s_name);
 int executeline(char *line, int line_no);
 char *_getline(FILE *ptr);

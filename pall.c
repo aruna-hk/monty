@@ -8,8 +8,8 @@ void pall(stack_t **stack, unsigned int line_number)
 {
 	if (*stack == NULL)
 	{
-		line_number = EXIT_FAILURE;
-		exit(line_number);
+		fprintf(stderr, "L%d: stack underflow\n", line_number);
+		return;
 	}
 	while ((*stack)->next != NULL)
 	{

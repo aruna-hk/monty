@@ -1,5 +1,42 @@
 #include "monty.h"
-char *DATA;
+/**
+* readfile - readfile containg opcodes
+* @fd: opened file descriptor
+* @STACK: pointer to top of stack
+*/
+void readfile(int fd, stack_t **STACK)
+{
+	char *buffer, *line;
+	int rd, line_no = 0;
+
+	line = malloc(1);
+	line[0] = '\0';
+	buffer = malloc(2);
+	if (buffer == NULL || line == NULL)
+	{
+		write(2, MALLOC, strlen(MALLOC));
+		write(2, NEWL, strlen(NEWL));
+		exit(EXIT_FAILURE);
+	}
+	rd = read(fd, buffer, 1);
+	while (rd == 1)
+	{
+		buffer[rd] = '\0';
+		line = _realloc(line, strlen(buffer) + strlen(line) + 1);
+		strcat(line, buffer);
+		if (strcmp(buffer, NEWL) == 0)
+		{
+			line_no++;
+			exec_instruction(&line, STACK, line_no);
+			line[0] = '\0';
+			line = _realloc(line, 1);
+		}
+		rd = read(fd, buffer, 1);
+	}
+	free(buffer);
+	free(line);
+}
+
 /**
 * main - open and start reading the file
 * @argc: number of argumenrts
@@ -8,50 +45,26 @@ char *DATA;
 */
 int main(int argc, char **arglist)
 {
-	char *line, *file, *opcode;
-	FILE *ptr;
-	unsigned int LINE_NO;
-	void (*f)(stack_t **stack, unsigned int line_number);
-
+	int fd;
 	stack_t *STACK = NULL;
+	char *file;
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
+		write(2, USAGE, strlen(USAGE));
+		write(2, NEWL, strlen(NEWL));
+		return (EXIT_FAILURE);
 	}
 	file = filelocation(arglist[1]);
-	ptr = fopen(file, "r");
+	fd = open(file, O_RDONLY);
 	free(file);
-	if (ptr == NULL)
+	if (fd == -1)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", arglist[1]);
-		exit(EXIT_FAILURE);
+		write(2, OPEN_ERROR, strlen(OPEN_ERROR));
+		write(2, arglist[1], strlen(arglist[1]));
+		write(2, NEWL, strlen(NEWL));
+		return (EXIT_FAILURE);
 	}
-	LINE_NO = 1;
-	line = _getline(ptr);
-	while (line != NULL)
-	{
-		while (*line == ' ')
-			line++;
-		if(*line == '\n')
-		{
-			line = _getline(ptr);
-			continue;
-		}
-		opcode = strtok(_strdup(line), " \n");
-		DATA = strtok(NULL, "\0");
-		f = get_instruction(opcode);
-		if (f == NULL)
-		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", LINE_NO, opcode);
-			exit(EXIT_FAILURE);
-		}
-		f(&STACK, LINE_NO);
-		LINE_NO++;
-		free(line);
-		line = _getline(ptr);
-	}
-	free(line);
-	exit(EXIT_SUCCESS);
+	readfile(fd, &STACK);
+	return (EXIT_SUCCESS);
 }

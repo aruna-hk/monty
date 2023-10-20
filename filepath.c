@@ -12,11 +12,11 @@ char *filelocation(char *s_name)
 	char *file_dir;
 
 	if (*s_name == '/')
-		return (_strdup(s_name));
-	s_name_dup = _strdup(s_name);
+		return (__strdup(s_name));
+	s_name_dup = __strdup(s_name);
 	strcpy(s_name_dup, s_name);
 	tok = strtok(s_name_dup, "/");
-	file_dir = _strdup(getenv("PWD"));
+	file_dir = __strdup(getenv("PWD"));
 	while (strcmp(tok, ".") == 0 || strcmp(tok, "..") == 0)
 	{
 		if (strcmp(tok, "..") == 0)
@@ -31,7 +31,7 @@ char *filelocation(char *s_name)
 		}
 		tok = strtok(NULL, "/");
 	}
-	file_dir = realloc(file_dir, strlen(file_dir) + strlen(tok) + 2);
+	file_dir = _realloc(file_dir, strlen(file_dir) + strlen(tok) + 2);
 	strcat(file_dir, "/");
 	strcat(file_dir, tok);
 	free(s_name_dup);
