@@ -1,7 +1,7 @@
 #include "monty.h"
 int ret_numb(unsigned int line_number)
 {
-	char *num = strdup(DATA);
+	char *num = _strdup(DATA);
 
 	while (*num == ' ')
 		num++;

@@ -18,7 +18,7 @@ int main(int argc, char **arglist)
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	file = filelocation(arglist[1]);
 	ptr = fopen(file, "r");
@@ -26,32 +26,32 @@ int main(int argc, char **arglist)
 	if (ptr == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", arglist[1]);
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	LINE_NO = 1;
-	line = getline(ptr);
+	line = _getline(ptr);
 	while (line != NULL)
 	{
 		while (*line == ' ')
 			line++;
 		if(*line == '\n')
 		{
-			line = getline(ptr);
+			line = _getline(ptr);
 			continue;
 		}
-		opcode = strtok(strdup(line), " \n");
+		opcode = strtok(_strdup(line), " \n");
 		DATA = strtok(NULL, "\0");
 		f = get_instruction(opcode);
 		if (f == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", LINE_NO, opcode);
-			return (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		f(&STACK, LINE_NO);
 		LINE_NO++;
 		free(line);
-		line = getline(ptr);
+		line = _getline(ptr);
 	}
 	free(line);
-	return (EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
