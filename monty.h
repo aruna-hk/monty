@@ -58,10 +58,14 @@ void swap(stack_t **stack, unsigned int line_number);
 void sub(stack_t **stack, unsigned int line_number);
 void diiv(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
+void mod(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
+void rotl(stack_t **stack, unsigned int line_number);
 char *__strdup(char *string);
 char *filelocation(char *s_name);
 int executeline(char *line, int line_no);
 char *_getline(FILE *ptr);
 stack_t *add_dnodeint(stack_t **head, const int n);
 void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);
 #endif

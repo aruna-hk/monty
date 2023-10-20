@@ -27,6 +27,12 @@ void readfile(int fd, stack_t **STACK)
 		if (strcmp(buffer, NEWL) == 0)
 		{
 			line_no++;
+			if (*line == '#')
+			{
+				line[0] = '\0';
+				line = _realloc(line, 1);
+				continue;
+			}
 			exec_instruction(&line, STACK, line_no);
 			line[0] = '\0';
 			line = _realloc(line, 1);
