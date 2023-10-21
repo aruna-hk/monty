@@ -6,14 +6,11 @@
 */
 void diiv(stack_t **stack, unsigned int line_number)
 {
-	int dev;
-
 	if ((*stack == NULL) || ((*stack)->next == NULL))
 	{
 		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	dev = (*stack)->next->n / (*stack)->n;
-	(*stack)->next->n = dev;
+	(*stack)->next->n = ((*stack)->next->n) / ((*stack)->n);
 	pop(stack, line_number);
 }

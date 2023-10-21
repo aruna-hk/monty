@@ -6,14 +6,11 @@
 */
 void add(stack_t **stack, unsigned int line_number)
 {
-	int adition;
-
 	if ((*stack == NULL) || ((*stack)->next == NULL))
 	{
-		fprintf(stdout, "L%u: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	adition = (*stack)->n + (*stack)->next->n;
-	(*stack)->next->n = adition;
+	(*stack)->next->n = (*stack)->n + (*stack)->next->n;
 	pop(stack, line_number);
 }
