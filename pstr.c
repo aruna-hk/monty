@@ -6,35 +6,23 @@
 */
 void pstr(stack_t **stack, unsigned int line_number)
 {
+	stack_t *st = *stack;
+	(void) line_number;
+
 	if (*stack == NULL)
 	{
-		if (write(1, NEWL, strlen(NEWL)) == -1)
-		{
-			fprintf(stderr, "L%u: write failed\n", line_number);
-			exit(EXIT_FAILURE);
-		}
+		fprintf(stdout, "\n");
 		return;
 	}
 	while ((*stack)->next != NULL)
 	{
 		if ((*stack)->n == 0  || (*stack)->n > 127 || (*stack)->n < 0)
 		{
-			if (write(1, NEWL, strlen(NEWL)) == -1)
-			{
-				fprintf(stderr, "L%u: write failed\n", line_number);
-				exit(EXIT_FAILURE);
-			}
+			fprintf(stdout, "\n");
 			return;
 		}
-		write(1, &(*stack)->n, sizeof(int));
+		fprintf(stdout, "%c", (*stack)->n);
 		*stack = (*stack)->next;
 	}
-	if (write(1, &(*stack)->n, sizeof(int)) == -1)
-	{
-		fprintf(stderr, "L%u: write failed\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	write(1, NEWL, strlen(NEWL));
-	while ((*stack)->prev != NULL)
-		*stack = (*stack)->prev;
+	*stack = st;
 }
