@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -35,4 +36,16 @@ typedef struct instruction_s
 } instruction_t;
 
 void push_component(stack_t **container, int digit, unsigned int debuger);
+void pop_fxn(stack_t **containter, unsigned int digit);
+void free_fxn(stack_t *container);
+int strcmp(char* str1, char* str2);
+extern stack_t *stack = NULL;
+void nop_code(stack_t **container, unsigned int digit);
+void mul_fxn(stack_t **container, unsigned int digit);
+void div_fxn(stack_t **container, unsigned int digit);
+void add_fxn(stack_t **container, unsigned int digit);
+void sub_fxn(stack_t **container, unsigned int digit);
+void swap_fxn(stack_t **container, unsigned int digit);    void pint_point(stack_t **container, unsigned int digit);
+void pall_print(stack_t ** containter, __attribute__((unuse
+d))unsigned int digit);
 #endif
