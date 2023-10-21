@@ -22,6 +22,7 @@ void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number)
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"rotl", rotl},
+		{"nop", nop},
 		{NULL, NULL},
 	};
 	while (ops[i].opcode != NULL)
