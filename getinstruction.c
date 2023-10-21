@@ -12,6 +12,7 @@ void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number)
 	instruction_t ops[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL},
 	};
 	while (ops[i].opcode != NULL)
