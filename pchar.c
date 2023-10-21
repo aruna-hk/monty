@@ -8,12 +8,12 @@ void pchar(stack_t **stack, unsigned int line_number)
 {
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pchar, stack empty", line_number);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	if ((int)(*stack)->n > 127 || (int)(*stack)->n < 0)
 	{
-		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	write(1, &((*stack)->n), sizeof(int));

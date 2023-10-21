@@ -10,7 +10,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 	{
 		if (write(1, NEWL, strlen(NEWL)) == -1)
 		{
-			fprintf(stderr, "L%d: write failed\n", line_number);
+			fprintf(stderr, "L%u: write failed\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 		return;
@@ -21,7 +21,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 		{
 			if (write(1, NEWL, strlen(NEWL)) == -1)
 			{
-				fprintf(stderr, "L%d: write failed\n", line_number);
+				fprintf(stderr, "L%u: write failed\n", line_number);
 				exit(EXIT_FAILURE);
 			}
 			return;
@@ -31,7 +31,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 	}
 	if (write(1, &(*stack)->n, sizeof(int)) == -1)
 	{
-		fprintf(stderr, "L%d: write failed\n", line_number);
+		fprintf(stderr, "L%u: write failed\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	write(1, NEWL, strlen(NEWL));
