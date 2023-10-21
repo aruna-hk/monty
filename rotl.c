@@ -8,7 +8,7 @@ void rotl(stack_t **stack, unsigned int line_number)
 {
 	int tmp;
 
-	if (*stack == NULL)
+	if (*stack == NULL || (*stack)->next == NULL)
 	{
 		nop(stack, line_number);
 	}
