@@ -22,6 +22,7 @@ void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number)
 		{"nop", nop},
 		{"pchar", pchar},
 		{"pstr", pstr},
+		{"mul", mul},
 		{"rotl", rotl},
 		{NULL, NULL},
 	};
