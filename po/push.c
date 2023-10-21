@@ -1,4 +1,19 @@
 #include "monty.h"
+void add_stack(stack_t **ptr, stack_t **new)
+{
+	(*new)->prev = NULL;
+	if (*ptr == NULL)
+	{
+		(*new)->next = NULL;
+		*ptr = *new;
+	}
+	else
+	{
+		(*ptr)->prev = *new;
+		(*new)->next = *ptr;
+		*ptr = *new;
+	}
+}
 /**
 * push - push opcode add to the stack
 * @struct: pointer to of data structure structure  --stack/ queue
@@ -15,6 +30,7 @@ void push(stack_t **stack, unsigned int line_no)
 		fprintf(stderr, "L%u: usage: push integer\n", line_no);
 		free_list(&(monty_info.stack));
 		free(monty_info.line);
+		close(monty_info.monty_fd);
 		exit(EXIT_FAILURE);
 	}
 	if (*monty_info.DATA == '-')
@@ -25,6 +41,7 @@ void push(stack_t **stack, unsigned int line_no)
 		{
 			free(monty_info.line);
 			free_list(stack);
+			close(monty_info.monty_fd);
 			fprintf(stderr, "L%u: usage: push integer\n", line_no);
 			exit(EXIT_FAILURE);
 		}
@@ -33,8 +50,15 @@ void push(stack_t **stack, unsigned int line_no)
 	monty_info.DATA = sdata;
 	data = atoi(monty_info.DATA);
 	new = malloc(sizeof(stack_t));
-	new->prev = NULL;
 	new->n = data;
-	new->next = monty_info.stack;
-	monty_info.stack = new;
-}	
+	if (new == NULL)
+	{
+		free(monty_info.line);
+		free_list(stack);
+		close(monty_info.monty_fd);
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	add_stack(stack, &new);
+	
+}

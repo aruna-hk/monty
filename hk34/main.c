@@ -1,13 +1,15 @@
 #include "monty.h"
 
-MONTYINFO monty_info = {-1, 0, -1, NULL, NULL, NULL};
+MONTYINFO mont = {-1, -1, NULL, NULL};
 /**
 * readfile - readfile containg opcodes
+* @fd: opened file descriptor
+* @STACK: pointer to top of stack
 */
-void readfile(void)
+void readfile()
 {
 	char *buffer, *line;
-	int rd;
+	int rd, line_no = 0;
 
 	line = malloc(1);
 	line[0] = '\0';
@@ -16,10 +18,10 @@ void readfile(void)
 	{
 		write(2, MALLOC, strlen(MALLOC));
 		write(2, NEWL, strlen(NEWL));
-		close(monty_info.monty_fd);
+		close(mont.monty_fd);
 		exit(EXIT_FAILURE);
 	}
-	rd = read(monty_info.monty_fd, buffer, 1);
+	rd = read(mont.monty_fd, buffer, 1);
 	while (rd == 1)
 	{
 		buffer[rd] = '\0';
@@ -27,7 +29,7 @@ void readfile(void)
 		strcat(line, buffer);
 		if (strcmp(buffer, NEWL) == 0)
 		{
-			monty_info.line_no += 1;
+			line_no++;
 			if (*line == '#')
 			{
 				free(line);
@@ -35,17 +37,16 @@ void readfile(void)
 				line[0] = '\0';
 				continue;
 			}
-			monty_info.line = line;
-			exec_instruction();
+			printf("%s", line);
+			//exec_instruction(&line, STACK, line_no, fd);
 			free(line);
 			line = malloc(1);
 			line[0] = '\0';
 		}
-		rd = read(monty_info.monty_fd, buffer, 1);
+		rd = read(mont.monty_fd, buffer, 1);
 	}
 	free(buffer);
 	free(line);
-	close(monty_info.monty_fd);
 }
 /**
 * main - open and start reading the file
@@ -56,6 +57,7 @@ void readfile(void)
 int main(int argc, char **arglist)
 {
 	int fd;
+	stack_t *STACK = NULL;
 	char *file;
 
 	if (argc != 2)
@@ -74,8 +76,8 @@ int main(int argc, char **arglist)
 		write(2, NEWL, strlen(NEWL));
 		return (EXIT_FAILURE);
 	}
-	monty_info.monty_fd = fd;
+	mont.monty_fd = fd;
 	readfile();
-	free_list(&(monty_info.stack));
+	free_list(&(mont.stack));
 	return (EXIT_SUCCESS);
 }

@@ -54,9 +54,7 @@ typedef struct instruction_s
 struct montyinfo
 {
 	int monty_fd;
-	int line_no;
 	int data_structure;
-	char *line;
 	char *DATA;
 	stack_t *stack;
 };
@@ -66,7 +64,7 @@ extern MONTYINFO monty_info;
 
 char *_realloc(char *existing, unsigned int extra);
 
-void exec_instruction();
+void exec_instruction(char **line, stack_t **STACK, int unsigned line_number);
 
 void print(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
