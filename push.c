@@ -2,7 +2,7 @@
 /**
 * add_stack - push element ton the stack
 * @ptr: to top of stack
-* @new: node of stack
+* @new_s: node of stack
 */
 void add_stack(stack_t **ptr, stack_t **new_s)
 {
@@ -32,10 +32,8 @@ void push(stack_t **stack, unsigned int line_no)
 
 	if (DATA == NULL)
 	{
+		free_exit(stack);
 		fprintf(stderr, "L%u: usage: push integer\n", line_no);
-		free_list(stack);
-		free(monty_info.line);
-		fclose(monty_info.file_ptr);
 		exit(EXIT_FAILURE);
 	}
 	if (*DATA == '-')
@@ -44,9 +42,7 @@ void push(stack_t **stack, unsigned int line_no)
 	{
 		if ((int) *(DATA) > 57 || (int) *(DATA) < 48)
 		{
-			free(LINE);
-			free_list(stack);
-			fclose(F_PTR);
+			free_exit(stack);
 			fprintf(stderr, "L%u: usage: push integer\n", line_no);
 			exit(EXIT_FAILURE);
 		}
@@ -58,9 +54,7 @@ void push(stack_t **stack, unsigned int line_no)
 	new->n = data;
 	if (new == NULL)
 	{
-		free(LINE);
-		free_list(stack);
-		fclose(F_PTR);
+		free_exit(stack);
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}

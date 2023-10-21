@@ -8,8 +8,8 @@ MONTYINFO monty_info = {0, 0, NULL, NULL, NULL, NULL};
 */
 void free_exit(stack_t **stack)
 {
-	fclose(monty_info.file_ptr);
-	free(monty_info.line);
+	fclose(F_PTR);
+	free(LINE);
 	free_list(stack);
 }
 /**
