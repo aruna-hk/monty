@@ -49,7 +49,10 @@ typedef struct instruction_s
 * struct montyinfo - store information of monty file
 * @monty_fd: file descriptor of opened monty file
 * @data_structure: the data structure to work on queue or stack
+* @line_no: line number of op code
+* @line: line from the file
 * @DATA: data section of opcodes that performe operation on data
+* @stack: stack pointer
 */
 struct montyinfo
 {
@@ -63,11 +66,8 @@ struct montyinfo
 typedef struct montyinfo MONTYINFO;
 
 extern MONTYINFO monty_info;
-
 char *_realloc(char *existing, unsigned int extra);
-
-void exec_instruction();
-
+void exec_instruction(void);
 void print(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);

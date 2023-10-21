@@ -45,7 +45,6 @@ void readfile(void)
 	}
 	free(buffer);
 	free(line);
-	close(monty_info.monty_fd);
 }
 /**
 * main - open and start reading the file
@@ -56,7 +55,6 @@ void readfile(void)
 int main(int argc, char **arglist)
 {
 	int fd;
-	char *file;
 
 	if (argc != 2)
 	{
@@ -64,9 +62,7 @@ int main(int argc, char **arglist)
 		write(2, NEWL, strlen(NEWL));
 		return (EXIT_FAILURE);
 	}
-	file = filelocation(arglist[1]);
-	fd = open(file, O_RDONLY);
-	free(file);
+	fd = open(arglist[1], O_RDONLY);
 	if (fd == -1)
 	{
 		write(2, OPEN_ERROR, strlen(OPEN_ERROR));
@@ -76,6 +72,7 @@ int main(int argc, char **arglist)
 	}
 	monty_info.monty_fd = fd;
 	readfile();
+	close(monty_info.monty_fd);
 	free_list(&(monty_info.stack));
 	return (EXIT_SUCCESS);
 }
