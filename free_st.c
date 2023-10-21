@@ -5,9 +5,13 @@
 */
 void free_list(stack_t **ptr)
 {
-	while (*ptr != NULL)
+	if (*ptr == NULL)
+		return;
+	while ((*ptr)->next != NULL)
 	{
-		free((*ptr)->prev);
 		*ptr = (*ptr)->next;
+		free((*ptr)->prev);
 	}
+	free(*ptr);
+	*ptr = NULL;
 }

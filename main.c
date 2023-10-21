@@ -1,50 +1,16 @@
 #include "monty.h"
 
-MONTYINFO monty_info = {-1, 0, -1, NULL, NULL, NULL};
-/**
-* readfile - readfile containg opcodes
-*/
-void readfile(void)
-{
-	char *buffer, *line;
-	int rd;
+MONTYINFO monty_info = {0, 0, NULL, NULL, NULL, NULL};
 
-	line = malloc(1);
-	line[0] = '\0';
-	buffer = malloc(2);
-	if (buffer == NULL || line == NULL)
-	{
-		write(2, MALLOC, strlen(MALLOC));
-		write(2, NEWL, strlen(NEWL));
-		close(monty_info.monty_fd);
-		exit(EXIT_FAILURE);
-	}
-	rd = read(monty_info.monty_fd, buffer, 1);
-	while (rd == 1)
-	{
-		buffer[rd] = '\0';
-		line = realloc(line, strlen(buffer) + strlen(line) + 1);
-		strcat(line, buffer);
-		if (strcmp(buffer, NEWL) == 0)
-		{
-			monty_info.line_no += 1;
-			if (*line == '#')
-			{
-				free(line);
-				line = malloc(1);
-				line[0] = '\0';
-				continue;
-			}
-			monty_info.line = line;
-			exec_instruction();
-			free(line);
-			line = malloc(1);
-			line[0] = '\0';
-		}
-		rd = read(monty_info.monty_fd, buffer, 1);
-	}
-	free(buffer);
-	free(line);
+/**
+* free_exit - free content of monty info struct
+* @stack: pointer to top of stack
+*/
+void free_exit(stack_t **stack)
+{
+	fclose(monty_info.file_ptr);
+	free(monty_info.line);
+	free_list(stack);
 }
 /**
 * main - open and start reading the file
@@ -54,25 +20,41 @@ void readfile(void)
 */
 int main(int argc, char **arglist)
 {
-	int fd;
+	ssize_t nread;
+	size_t rread;
+	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{
-		write(2, USAGE, strlen(USAGE));
-		write(2, NEWL, strlen(NEWL));
-		return (EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
-	fd = open(arglist[1], O_RDONLY);
-	if (fd == -1)
+	F_PTR = fopen(arglist[1], "r");
+	if (F_PTR == NULL)
 	{
-		write(2, OPEN_ERROR, strlen(OPEN_ERROR));
-		write(2, arglist[1], strlen(arglist[1]));
-		write(2, NEWL, strlen(NEWL));
-		return (EXIT_FAILURE);
+		fprintf(stderr, "Error: Can't open file %s\n", arglist[1]);
+		exit(EXIT_FAILURE);
 	}
-	monty_info.monty_fd = fd;
-	readfile();
-	close(monty_info.monty_fd);
-	free_list(&(monty_info.stack));
+	nread = getline(&(LINE), &rread, F_PTR);
+	while (nread != EOF)
+	{
+		LINE_NO += 1;
+		OP_C = strtok(LINE, " \n");
+		if ((OP_C == NULL) || (*(OP_C) == '#'))
+		{
+			nread = getline(&(LINE), &rread, F_PTR);
+			continue;
+		}
+		DATA = strtok(NULL, " \n");
+		if (get_instruction(OP_C) == NULL)
+		{
+			fprintf(stderr, "L%u: unknown instruction %s\n", LINE_NO, OP_C);
+			free_exit(&stack);
+			exit(EXIT_FAILURE);
+		}
+		get_instruction(OP_C)(&stack, LINE_NO);
+		nread = getline(&(LINE), &rread, F_PTR);
+	}
+	free_exit(&stack);
 	return (EXIT_SUCCESS);
 }

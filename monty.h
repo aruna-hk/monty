@@ -47,7 +47,7 @@ typedef struct instruction_s
 } instruction_t;
 /**
 * struct montyinfo - store information of monty file
-* @monty_fd: file descriptor of opened monty file
+* @ptr: file descriptor of opened monty file
 * @data_structure: the data structure to work on queue or stack
 * @line_no: line number of op code
 * @line: line from the file
@@ -56,18 +56,25 @@ typedef struct instruction_s
 */
 struct montyinfo
 {
-	int monty_fd;
-	int line_no;
+	unsigned int line_no;
 	int data_structure;
+	FILE *file_ptr;
 	char *line;
+	char *opcode;
 	char *DATA;
-	stack_t *stack;
 };
 typedef struct montyinfo MONTYINFO;
-
 extern MONTYINFO monty_info;
+
+#define D_TYPE monty_info.data_structure
+#define OP_C monty_info.opcode
+#define LINE_NO monty_info.line_no
+#define LINE monty_info.line
+#define DATA monty_info.DATA
+#define F_PTR monty_info.file_ptr
+
 char *_realloc(char *existing, unsigned int extra);
-void exec_instruction(void);
+void exec_instruction(stack_t **stack);
 void print(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
@@ -90,4 +97,6 @@ char *_getline(FILE *ptr);
 stack_t *add_dnodeint(stack_t **head, const int n);
 void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
+void free_exit(stack_t **stack);
+void add_stack(stack_t **ptr, stack_t **new_s);
 #endif

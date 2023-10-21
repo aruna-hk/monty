@@ -4,19 +4,19 @@
 * @ptr: to top of stack
 * @new: node of stack
 */
-void add_stack(stack_t **ptr, stack_t **new)
+void add_stack(stack_t **ptr, stack_t **new_s)
 {
-	(*new)->prev = NULL;
+	(*new_s)->prev = NULL;
 	if (*ptr == NULL)
 	{
-		(*new)->next = NULL;
-		*ptr = *new;
+		(*new_s)->next = NULL;
+		*ptr = *new_s;
 	}
 	else
 	{
-		(*ptr)->prev = *new;
-		(*new)->next = *ptr;
-		*ptr = *new;
+		(*ptr)->prev = *new_s;
+		(*new_s)->next = *ptr;
+		*ptr = *new_s;
 	}
 }
 /**
@@ -27,40 +27,40 @@ void add_stack(stack_t **ptr, stack_t **new)
 void push(stack_t **stack, unsigned int line_no)
 {
 	stack_t *new;
-	char *sdata = monty_info.DATA;
+	char *sdata = DATA;
 	int data;
 
-	if (monty_info.DATA == NULL)
+	if (DATA == NULL)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_no);
-		free_list(&(monty_info.stack));
+		free_list(stack);
 		free(monty_info.line);
-		close(monty_info.monty_fd);
+		fclose(monty_info.file_ptr);
 		exit(EXIT_FAILURE);
 	}
-	if (*monty_info.DATA == '-')
-		monty_info.DATA += 1;
-	while (*(monty_info.DATA) != '\0')
+	if (*DATA == '-')
+		DATA += 1;
+	while (*(DATA) != '\0')
 	{
-		if ((int) *(monty_info.DATA) > 57 || (int) *(monty_info.DATA) < 48)
+		if ((int) *(DATA) > 57 || (int) *(DATA) < 48)
 		{
-			free(monty_info.line);
+			free(LINE);
 			free_list(stack);
-			close(monty_info.monty_fd);
+			fclose(F_PTR);
 			fprintf(stderr, "L%u: usage: push integer\n", line_no);
 			exit(EXIT_FAILURE);
 		}
-		monty_info.DATA += 1;
+		DATA += 1;
 	}
-	monty_info.DATA = sdata;
-	data = atoi(monty_info.DATA);
+	DATA = sdata;
+	data = atoi(DATA);
 	new = malloc(sizeof(stack_t));
 	new->n = data;
 	if (new == NULL)
 	{
-		free(monty_info.line);
+		free(LINE);
 		free_list(stack);
-		close(monty_info.monty_fd);
+		fclose(F_PTR);
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
