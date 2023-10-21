@@ -10,16 +10,18 @@ void rotl(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: too short cant perform rotl\n", line_number);
-		exit(EXIT_FAILURE);
+		nop(stack, line_number);
 	}
-	tmp = (*stack)->n;
-	while ((*stack)->next != NULL)
+	else
 	{
-		(*stack)->n = (*stack)->next->n;
-		*stack = (*stack)->next;
+		tmp = (*stack)->n;
+		while ((*stack)->next != NULL)
+		{
+			(*stack)->n = (*stack)->next->n;
+			*stack = (*stack)->next;
+		}
+		(*stack)->n = tmp;
+		while ((*stack)->prev != NULL)
+			*stack = (*stack)->prev;
 	}
-	(*stack)->n = tmp;
-	while ((*stack)->prev != NULL)
-		*stack = (*stack)->prev;
 }
