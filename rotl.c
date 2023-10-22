@@ -6,7 +6,8 @@
 */
 void rotl(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp;
+	int tmp;
+	stack_t *temp;
 
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
@@ -16,15 +17,15 @@ void rotl(stack_t **stack, unsigned int line_number)
 		swap(stack, line_number);
 	else
 	{
-		tmp = *stack;
+		temp = *stack;
+		tmp = (*stack)->n;
 
 		while ((*stack)->next != NULL)
+		{
+			(*stack)->n = (*stack)->next->n;
 			*stack = (*stack)->next;
-		(*stack)->next = tmp;
-		tmp->prev = *stack;
-		tmp = tmp->next;
-		(*stack)->next->next = NULL;
-		tmp->prev = NULL;
-		*stack = tmp;
+		}
+		(*stack)->n = tmp;
+		*stack = temp;
 	}
 }
