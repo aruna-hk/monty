@@ -49,4 +49,5 @@ void swap_fxn(stack_t **container, unsigned int digit);
 void div_fxn(stack_t **container, unsigned int digit);
 void exec_fxn(char *opcode, char * my_argument, unsigned int digit, stack_t **stack);
 void print_char(stack_t **containter, unsigned int digit);
+void print_str_ascending(stack_t **container, unsigned int digit);
 #endif
