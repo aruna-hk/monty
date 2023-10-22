@@ -7,8 +7,6 @@
 void pstr(stack_t **s, unsigned int line_number)
 {
 	stack_t *st = *s;
-	int nn;
-	(void) line_number;
 
 	if (*s == NULL)
 	{
@@ -16,13 +14,14 @@ void pstr(stack_t **s, unsigned int line_number)
 		return;
 	}
 	C_FLAG = 1;
-	nn = (*s)->n;
-	while ((*s)->next != NULL && nn != 0 && (nn < 127 || nn < 0))
+	while (*s != NULL)
 	{
+		if ((*s)->n > 127 || (*s)->n < 0 || (*s)->n == 0)
+			break;
 		pchar(s, line_number);
-		nn = (*s)->n;
 		*s = (*s)->next;
 	}
 	*s = st;
 	fprintf(stdout, "\n");
+	C_FLAG = 0;
 }
