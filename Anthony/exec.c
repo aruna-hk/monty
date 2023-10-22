@@ -1,6 +1,5 @@
 #include "monty.h"
-int strcmp(char* str1, char* str2);
-stack_t *stack = NULL;
+int strcmp(const char* str1, const char* str2);
 void nop_code(stack_t **container, unsigned int digit);
 void mul_fxn(stack_t **container, unsigned int digit);
 void div_fxn(stack_t **container, unsigned int digit);
@@ -8,7 +7,8 @@ void add_fxn(stack_t **container, unsigned int digit);
 void sub_fxn(stack_t **container, unsigned int digit);
 void swap_fxn(stack_t **container, unsigned int digit);
 void pint_point(stack_t **container, unsigned int digit);
-void pall_print(stack_t ** containter, __attribute__((unused))unsigned int digit);
+void pall_print(stack_t **containter, __attribute__((unused))unsigned int digit);
+void push_fxn(stack_t **container, unsigned int digit);
 /**
  * exec_fxn - this function implement the prototye
  * @container: array of pointer
@@ -18,14 +18,15 @@ void pall_print(stack_t ** containter, __attribute__((unused))unsigned int digit
 void exec_fxn(char *opcode, char *my_argument, unsigned int digit, stack_t **stack)
 {
     digit = 0;
-    int val = atoi(my_argument);
+    val = atoi(my_argument);
+    
     if (opcode[0] == '#')
     {
         return;
     }
     if (strcmp(opcode, "push") == 0)
     {
-        push_component(stack, val, digit);
+        push_fxn(stack, digit);
     }
     else
     {

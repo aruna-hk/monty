@@ -1,6 +1,5 @@
 #include "monty.h"
 #include <string.h>
-stack_t *stack = NULL;
 void exec_fxn(char *opcode, char * my_argument, unsigned int digit, stack_t **stack);
 /**
  * main - this program is based on tdesigning the interpreter
@@ -43,4 +42,5 @@ int main(int argc, char **argv)
 
     free(storage);
     fclose(my_file);
+    return(0);
 }
