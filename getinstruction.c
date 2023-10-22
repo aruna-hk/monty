@@ -25,6 +25,8 @@ void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number)
 		{"mul", mul},
 		{"rotl", rotl},
 		{"rotr", rotr},
+		{"stack", stack},
+		{"queue", queue},
 		{NULL, NULL},
 	};
 	while (ops[i].opcode != NULL)
