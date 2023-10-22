@@ -17,7 +17,7 @@ void pstr(stack_t **s, unsigned int line_number)
 	}
 	C_FLAG = 1;
 	nn = (*s)->n;
-	while ((*s)->next != NULL && nn != 0 && (nn < 127 || (nn < 0)))
+	while ((*s)->next != NULL && nn != 0 && (nn < 127 || nn < 0))
 	{
 		pchar(s, line_number);
 		nn = (*s)->n;
