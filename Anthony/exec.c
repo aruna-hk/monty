@@ -1,4 +1,5 @@
 #include "monty.h"
+int val;
 int strcmp(const char* str1, const char* str2);
 void nop_code(stack_t **container, unsigned int digit);
 void mul_fxn(stack_t **container, unsigned int digit);

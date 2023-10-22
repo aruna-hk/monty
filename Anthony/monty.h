@@ -34,8 +34,6 @@ typedef struct instruction_s
         char *opcode;
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-extern int val;
-stack_t *stack = NULL;
 int strcmp(const char *str1, const char* str2);
 void free_fxn(stack_t *container);
 void push_fxn(stack_t **container, unsigned int digit);
