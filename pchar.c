@@ -18,5 +18,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 		free_exit(stack);
 		exit(EXIT_FAILURE);
 	}
-	fprintf(stdout, "%c\n", (*stack)->n);
+	fprintf(stdout, "%c", (*stack)->n);
+	if (C_FLAG == 0)
+		fprintf(stdout, "\n");
 }

@@ -1,28 +1,28 @@
 #include "monty.h"
 /**
 * pstr - print string --as elements from the stack
-* @stack: to of stack p[ointer
+* @s: to of stack pointer
 * @line_number: file line number
 */
-void pstr(stack_t **stack, unsigned int line_number)
+void pstr(stack_t **s, unsigned int line_number)
 {
-	stack_t *st = *stack;
+	stack_t *st = *s;
+	int nn;
 	(void) line_number;
 
-	if (*stack == NULL)
+	if (*s == NULL)
 	{
 		fprintf(stdout, "\n");
 		return;
 	}
-	while ((*stack)->next != NULL)
+	C_FLAG = 1;
+	nn = (*s)->n;
+	while ((*s)->next != NULL && nn != 0 && (nn < 127 || (nn < 0)))
 	{
-		if ((*stack)->n == 0  || (*stack)->n > 127 || (*stack)->n < 0)
-		{
-			fprintf(stdout, "\n");
-			return;
-		}
-		fprintf(stdout, "%c", (*stack)->n);
-		*stack = (*stack)->next;
+		pchar(s, line_number);
+		nn = (*s)->n;
+		*s = (*s)->next;
 	}
-	*stack = st;
+	*s = st;
+	fprintf(stdout, "\n");
 }

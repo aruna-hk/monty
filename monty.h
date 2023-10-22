@@ -8,10 +8,6 @@
 #define DSTACK 0
 #define DQUEUE 1
 #define NEWL "\n"
-#define USAGE "USAGE: monty file"
-#define MALLOC "Error: malloc failed"
-#define OPEN_ERROR "Error: Can't open file "
-#define OP_NUN "unknown instruction"
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -53,6 +49,8 @@ typedef struct instruction_s
 * @line: line from the file
 * @DATA: data section of opcodes that performe operation on data
 * @stack: stack pointer
+* @char_flag: character flag if 0 newline is printed after the character
+* else strings
 */
 struct montyinfo
 {
@@ -62,6 +60,7 @@ struct montyinfo
 	char *line;
 	char *opcode;
 	char *DATA;
+	int char_flag;
 };
 typedef struct montyinfo MONTYINFO;
 extern MONTYINFO monty_info;
@@ -72,6 +71,7 @@ extern MONTYINFO monty_info;
 #define LINE monty_info.line
 #define DATA monty_info.DATA
 #define F_PTR monty_info.file_ptr
+#define C_FLAG monty_info.char_flag
 
 char *_realloc(char *existing, unsigned int extra);
 void exec_instruction(stack_t **stack);

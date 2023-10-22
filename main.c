@@ -1,6 +1,6 @@
 #include "monty.h"
 
-MONTYINFO monty_info = {0, 0, NULL, NULL, NULL, NULL};
+MONTYINFO monty_info = {0, 0, NULL, NULL, NULL, NULL, 0};
 
 /**
 * free_exit - free content of monty info struct
@@ -9,8 +9,10 @@ MONTYINFO monty_info = {0, 0, NULL, NULL, NULL, NULL};
 void free_exit(stack_t **stack)
 {
 	fclose(F_PTR);
-	free(LINE);
-	free_list(stack);
+	if (LINE != NULL)
+		free(LINE);
+	if (*stack != NULL)
+		free_list(stack);
 }
 /**
 * main - open and start reading the file
