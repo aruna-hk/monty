@@ -5,8 +5,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#define STK 0
-#define QUEUE 1
+#define DSTACK 0
+#define DQUEUE 1
 #define NEWL "\n"
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -73,8 +73,6 @@ extern MONTYINFO monty_info;
 #define F_PTR monty_info.file_ptr
 #define C_FLAG monty_info.char_flag
 
-stack_t *add_begin(stack_t **head, const int n);
-stack_t *add_end(stack_t **head, const int n);
 char *_realloc(char *existing, unsigned int extra);
 void exec_instruction(stack_t **stack);
 void print(stack_t **stack, unsigned int line_number);
@@ -92,8 +90,6 @@ void mod(stack_t **stack, unsigned int line_number);
 void pchar(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
-void stack(stack_t **stac, unsigned int line_number);
-void queue(stack_t **stac, unsigned int line_number);
 void free_list(stack_t **ptr);
 char *__strdup(char *string);
 char *filelocation(char *s_name);
