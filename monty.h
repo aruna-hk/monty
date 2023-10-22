@@ -76,6 +76,7 @@ extern MONTYINFO monty_info;
 char *_realloc(char *existing, unsigned int extra);
 void exec_instruction(stack_t **stack);
 void print(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
