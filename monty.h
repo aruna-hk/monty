@@ -90,14 +90,17 @@ void mod(stack_t **stack, unsigned int line_number);
 void pchar(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
+void stack(stack_t **dstruct, unsigned int line_number);
+void queue(stack_t **dstruct, unsigned int line_number);
 void free_list(stack_t **ptr);
 char *__strdup(char *string);
 char *filelocation(char *s_name);
 int executeline(char *line, int line_no);
 char *_getline(FILE *ptr);
-stack_t *add_dnodeint(stack_t **head, const int n);
 void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
 void free_exit(stack_t **stack);
 void add_stack(stack_t **ptr, stack_t **new_s);
+void add_begin(stack_t **head, const int n);
+void add_end(stack_t **head, const int n);
 #endif
