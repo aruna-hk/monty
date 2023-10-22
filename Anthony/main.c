@@ -1,14 +1,17 @@
 #include "monty.h"
 #include <string.h>
-void exec_fxn(char *opcode, char * my_argument, unsigned int digit, stack_t **stack);
+#include <stdio.h>
+stack_t *stack = NULL;
+void exec_fxn(char *opcode, char *my_argument, unsigned int digit, stack_t **stack);
 /**
- * main - this program is based on tdesigning the interpreter
- * @argc: this is the number of the input value
- * @argv: this are the array of pointer
- * Return: success(0)
+* main - monty code interpreter
+* @argc: number of arguments
+* @argv: monty file location
+* Return: 0 on success
 */
 int main(int argc, char **argv)
 {
+<<<<<<< HEAD
     if (argc < 2)
     {
         fprintf(stderr, "Usage: %s filename\n", argv[0]);
@@ -16,6 +19,21 @@ int main(int argc, char **argv)
     }
 
     FILE *my_file = fopen(argv[1], "r");
+=======
+    char *my_opcode;
+    char *my_arg;
+    int iterator = 0;
+    char storage[1024];
+    FILE *my_file;
+
+    if (argc < 2)
+    {
+        fprintf(stderr, "USAGE: monty file\n");
+        exit(EXIT_FAILURE);
+    }
+
+    my_file = fopen(argv[1], "r");
+>>>>>>> 47b6257474e52780db25bcc30e78717665c5eeb0
 
     if (my_file == NULL)
     {
@@ -23,6 +41,7 @@ int main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
+<<<<<<< HEAD
     char *my_opcode;
     char *my_arg;
     int iterator = 0;
@@ -31,9 +50,12 @@ int main(int argc, char **argv)
     size_t length_of_file = 0;
 
     while (line_of_characters > 0)
+=======
+    while (fgets(storage, sizeof(storage), my_file) != NULL)
+>>>>>>> 47b6257474e52780db25bcc30e78717665c5eeb0
     {
-        line_of_characters = getline(&storage, &length_of_file, my_file);
         iterator++;
+<<<<<<< HEAD
 
         if (line_of_characters > 0)
         {
@@ -46,8 +68,17 @@ int main(int argc, char **argv)
             }
         }
     }
+=======
+        my_opcode = strtok(storage, "\t\n\r");
+        my_arg = strtok(NULL, "\t\n\r");
+>>>>>>> 47b6257474e52780db25bcc30e78717665c5eeb0
 
-    free(storage);
+        if (my_opcode != NULL)
+        {
+            exec_fxn(my_opcode, my_arg, iterator, &stack);
+        }
+    }
+    
     fclose(my_file);
     return 0;
 }
