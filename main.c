@@ -1,5 +1,19 @@
 #include "monty.h"
-char *DATA;
+
+MONTYINFO monty_info = {0, 0, NULL, NULL, NULL, NULL, 0};
+
+/**
+* free_exit - free content of monty info struct
+* @stack: pointer to top of stack
+*/
+void free_exit(stack_t **stack)
+{
+	fclose(F_PTR);
+	if (LINE != NULL)
+		free(LINE);
+	if (*stack != NULL)
+		free_list(stack);
+}
 /**
 * main - open and start reading the file
 * @argc: number of argumenrts
@@ -8,50 +22,41 @@ char *DATA;
 */
 int main(int argc, char **arglist)
 {
-	char *line, *file, *opcode;
-	FILE *ptr;
-	unsigned int LINE_NO;
-	void (*f)(stack_t **stack, unsigned int line_number);
-
-	stack_t *STACK = NULL;
+	ssize_t nread;
+	size_t rread;
+	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-	file = filelocation(arglist[1]);
-	ptr = fopen(file, "r");
-	free(file);
-	if (ptr == NULL)
+	F_PTR = fopen(arglist[1], "r");
+	if (F_PTR == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", arglist[1]);
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-	LINE_NO = 1;
-	line = getline(ptr);
-	while (line != NULL)
+	nread = getline(&(LINE), &rread, F_PTR);
+	while (nread != EOF)
 	{
-		while (*line == ' ')
-			line++;
-		if(*line == '\n')
+		LINE_NO += 1;
+		OP_C = strtok(LINE, " \n");
+		if ((OP_C == NULL) || (*(OP_C) == '#'))
 		{
-			line = getline(ptr);
+			nread = getline(&(LINE), &rread, F_PTR);
 			continue;
 		}
-		opcode = strtok(strdup(line), " \n");
-		DATA = strtok(NULL, "\0");
-		f = get_instruction(opcode);
-		if (f == NULL)
+		DATA = strtok(NULL, " \n");
+		if (get_instruction(OP_C) == NULL)
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", LINE_NO, opcode);
-			return (EXIT_FAILURE);
+			fprintf(stderr, "L%u: unknown instruction %s\n", LINE_NO, OP_C);
+			free_exit(&stack);
+			exit(EXIT_FAILURE);
 		}
-		f(&STACK, LINE_NO);
-		LINE_NO++;
-		free(line);
-		line = getline(ptr);
+		get_instruction(OP_C)(&stack, LINE_NO);
+		nread = getline(&(LINE), &rread, F_PTR);
 	}
-	free(line);
+	free_exit(&stack);
 	return (EXIT_SUCCESS);
 }

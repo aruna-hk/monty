@@ -6,17 +6,16 @@
 */
 void pall(stack_t **stack, unsigned int line_number)
 {
+	stack_t *init = *stack;
+
+	(void) line_number;
+
 	if (*stack == NULL)
-	{
-		line_number = EXIT_FAILURE;
-		exit(line_number);
-	}
-	while ((*stack)->next != NULL)
+		return;
+	while (*stack != NULL)
 	{
 		fprintf(stdout, "%d\n", (*stack)->n);
 		*stack = (*stack)->next;
 	}
-	fprintf(stdout, "%d\n", (*stack)->n);
-	while ((*stack)->prev != NULL)
-		(*stack) = (*stack)->prev;
+	*stack = init;
 }

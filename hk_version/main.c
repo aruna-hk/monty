@@ -1,9 +1,5 @@
 #include "monty.h"
-#include <stdlib.h>
 char *DATA;
-FILE *ptr;
-stack_t *STACK;
-int LINE_NO;
 /**
 * main - open and start reading the file
 * @argc: number of argumenrts
@@ -13,46 +9,47 @@ int LINE_NO;
 int main(int argc, char **arglist)
 {
 	char *line, *file, *opcode;
-	void (*f)();
+	FILE *ptr;
+	void (*f)(stack_t **stack, unsigned int line_number);
+	unsigned int LINE_NO = 1;
+	stack_t *STACK = NULL;
 
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		return (EXIT_FAILURE);
+		return(EXIT_FAILURE);
 	}
 	file = filelocation(arglist[1]);
-
 	ptr = fopen(file, "r");
-	free(file);
 	if (ptr == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", arglist[1]);
-		return (EXIT_FAILURE);
+		free(file);
+		return(EXIT_FAILURE);
 	}
-	STACK = NULL;
-	LINE_NO = 1;
-	line = getline(ptr);
+	free(file);
+	line = _getline(ptr);
 	while (line != NULL)
 	{
-		line[strlen(line) - 1] = '\0';
 		while (*line == ' ')
 			line++;
-		if(*line == '\0')
+		if(*line == '\n')
 		{
-			line = getline(ptr);
+			line = _getline(ptr);
 			continue;
 		}
-		opcode = strtok(strdup(line), " \n");
+		opcode = strtok(_strdup(line), " \n");
 		DATA = strtok(NULL, "\0");
 		f = get_instruction(opcode);
 		if (f == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", LINE_NO, opcode);
-			return (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
-		f();
+		f(&STACK, LINE_NO);
 		LINE_NO++;
-		line = getline(ptr);
+		line = _getline(ptr);
 	}
-	return (EXIT_SUCCESS);
+	free(line);
+	return(EXIT_SUCCESS);
 }

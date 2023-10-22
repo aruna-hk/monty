@@ -1,61 +1,62 @@
 #include "monty.h"
-int ret_numb(unsigned int line_number)
-{
-	char *num = strdup(DATA);
-
-	while (*num == ' ')
-		num++;
-	if (*num == '\n' || *num == '\0')
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_SUCCESS);
-	}
-	else if (*num == '-')
-	{
-		num++;
-		if ((int)*num > 57 || (int)*num < 48)
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
-				exit(EXIT_FAILURE);
-		}
-		else
-			return ((atoi(DATA)));
-	}
-	else if ((int)*num > 57 || (int)*num < 48)
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	return (atoi(DATA));
-}
 /**
-* push - adde node at the beggining of doubly linked list
-* @stack: pointer to top of stack
-* @line_number: line number of the opcode
+* add_stack - push element ton the stack
+* @ptr: to top of stack
+* @new_s: node of stack
 */
-void push(stack_t **stack, unsigned int line_number)
+void add_stack(stack_t **ptr, stack_t **new_s)
 {
-	stack_t *new;
-
-	new = malloc(sizeof(stack_t));
-	if (new == NULL)
+	(*new_s)->prev = NULL;
+	if (*ptr == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	new->n = ret_numb(line_number);
-	new->prev = NULL;
-	new->next = NULL;
-	if (*stack == NULL)
-	{
-		*stack = new;
-		return;
+		(*new_s)->next = NULL;
+		*ptr = *new_s;
 	}
 	else
 	{
-		(*stack)->prev = new;
-		new->next = (*stack);
-		(*stack) = new;
-		return;
+		(*ptr)->prev = *new_s;
+		(*new_s)->next = *ptr;
+		*ptr = *new_s;
 	}
+}
+/**
+* push - push opcode add to the stack
+* @stack: pointer to of data structure structure  --stack/ queue
+* @line_no: line number of opcode in file
+*/
+void push(stack_t **stack, unsigned int line_no)
+{
+	stack_t *new;
+	char *sdata = DATA;
+	int data;
+
+	if (DATA == NULL)
+	{
+		free_exit(stack);
+		fprintf(stderr, "L%u: usage: push integer\n", line_no);
+		exit(EXIT_FAILURE);
+	}
+	if (*DATA == '-')
+		DATA += 1;
+	while (*(DATA) != '\0')
+	{
+		if ((int) *(DATA) > 57 || (int) *(DATA) < 48)
+		{
+			free_exit(stack);
+			fprintf(stderr, "L%u: usage: push integer\n", line_no);
+			exit(EXIT_FAILURE);
+		}
+		DATA += 1;
+	}
+	DATA = sdata;
+	data = atoi(DATA);
+	new = malloc(sizeof(stack_t));
+	new->n = data;
+	if (new == NULL)
+	{
+		free_exit(stack);
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	add_stack(stack, &new);
 }

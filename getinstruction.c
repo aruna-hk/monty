@@ -18,6 +18,13 @@ void (*get_instruction(char *s))(stack_t **stack, unsigned int line_number)
 		{"add", add},
 		{"sub", sub},
 		{"div", diiv},
+		{"mod", mod},
+		{"nop", nop},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"mul", mul},
+		{"rotl", rotl},
+		{"rotr", rotr},
 		{NULL, NULL},
 	};
 	while (ops[i].opcode != NULL)

@@ -11,7 +11,8 @@ void sub(stack_t **stack, unsigned int line_number)
 	if (((*stack) == NULL) || ((*stack)->next == NULL))
 	{
 		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
-		exit(EXIT_SUCCESS);
+		free_exit(stack);
+		exit(EXIT_FAILURE);
 	}
 	subs = (*stack)->next->n - (*stack)->n;
 	(*stack)->next->n = subs;

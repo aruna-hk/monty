@@ -12,11 +12,11 @@ char *filelocation(char *s_name)
 	char *file_dir;
 
 	if (*s_name == '/')
-		return (strdup(s_name));
-	s_name_dup = strdup(s_name);
+		return (__strdup(s_name));
+	s_name_dup = __strdup(s_name);
 	strcpy(s_name_dup, s_name);
 	tok = strtok(s_name_dup, "/");
-	file_dir = strdup(getenv("PWD"));
+	file_dir = __strdup(getenv("PWD"));
 	while (strcmp(tok, ".") == 0 || strcmp(tok, "..") == 0)
 	{
 		if (strcmp(tok, "..") == 0)

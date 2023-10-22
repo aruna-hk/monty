@@ -1,4 +1,5 @@
 *.m
+*.r
 alx_test_suite
 *.bash
 a.out
